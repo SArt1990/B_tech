@@ -1,45 +1,46 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Random;
 
 public class Task {
     public static void main(String[] args) {
 
+        int n;
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter integer array elements (enter 'e' for end):");
-        ArrayList<Integer> listnum_arr = new ArrayList<>();
-        
-        while (true) {
-            if (sc.hasNextInt()) {
-                listnum_arr.add(sc.nextInt());
-            } else {
-                if (!sc.nextLine().equals("e")) {
-                    System.out.println("Not right element!");                                                               
-                } else {                        
-                        break;
-                }
-            }   
-        }
-        sc.close();
-        System.out.println("List:" + listnum_arr);  
-        Integer[] num_arr = new Integer[listnum_arr.size()];
-        listnum_arr.toArray(num_arr);
+        System.out.println("Enter mass length:");    
 
-        /* for (int k = 0; k < listnum_arr.size(); k++) {
-            num_arr[k] = listnum_arr.get(k);
-            System.out.println(listnum_arr.get(k));
-        } */
+        if (sc.hasNextInt()) {
+            n = sc.nextInt();
+            int[] num_arr = new int[n];
+            Random randomGen = new Random();            
+            System.out.print("Array: ");
+
+            for (int i = 0; i < n; i++) {
+                num_arr[i] = randomGen.nextInt(n);
+                System.out.print(num_arr[i] + " ");
+            }
+
+            sort(num_arr, num_arr.length);
+            System.out.print("\nSort array: ");
+
+            for (int i = 0; i < num_arr.length; i++) {
+                System.out.print(num_arr[i] + " ");
+            }
+
+        } else {
+            System.out.println("No integer");
+        }
         
-        System.out.println("Custom:" + num_arr);
-        sort(num_arr, num_arr.length);
+        sc.close();
     }
 
-    public static void sort(Integer[] num_arr, int length) {
+    public static void sort(int[] num_arr, int length) {
         if (length < 2) {
             return;
         }
         int q = length / 2;
-        Integer[] b = new Integer[q];
-        Integer[] c = new Integer[length - q];
+        int[] b = new int[q];
+        int[] c = new int[length - q];
 
         for (int i = 0; i < q; i++) {
             b[i] = num_arr[i];
@@ -55,12 +56,9 @@ public class Task {
 
         merge(num_arr, b, c, q, length - q);
         
-        System.out.println(num_arr);
-
-
     }
 
-    public static void merge(Integer[] num_arr, Integer[] b, Integer[] c, int left, int right) {
+    public static void merge(int[] num_arr, int[] b, int[] c, int left, int right) {
 
         int i = 0, j = 0, k = 0;
         while (i < left && j < right) {
